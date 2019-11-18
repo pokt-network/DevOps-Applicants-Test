@@ -20,6 +20,12 @@ The 4 deliverables will consist of:
 We only will receive the deliverables in this repo via PR request. You need to create a folder with your name in lowercase and separated by `_` and create an issue for each of the deliverables, being the third deliverable a README.md file with the IP of the wordpress stack. 
 
 
+#### Deadline
+
+_(We know you love this word)_
+The deadline will be 3 day after we send you access to this repo
+
+
 Feel free to ask any question to lowell@pokt.network
 
 
