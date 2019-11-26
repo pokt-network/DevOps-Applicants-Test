@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+spec:
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        - name: PMA_HOST
+          value: db
+        image: phpmyadmin/phpmyadmin
+        name: phpmyadmin
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}

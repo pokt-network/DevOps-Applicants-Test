@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: wordpress
+        - name: MYSQL_PASSWORD
+          value: wordpress
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        - name: MYSQL_USER
+          value: wordpress
+        image: mysql:5.7
+        name: db
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: db-data
+      restartPolicy: Always
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: db-data
+status: {}
