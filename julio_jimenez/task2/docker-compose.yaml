@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+    db:
+      container_name: db
+      image: mysql:5.7
+      networks: 
+        - backend
+      volumes: 
+        - mysql-v:/var/lib/mysql
+      environment:
+          MYSQL_USER: wordpress_user
+          MYSQL_ROOT_PASSWORD: pass
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: wordpress
+    api:
+      image: wordpress:5.3.1-php7.2-apache
+      environment:
+        WORDPRESS_DB_HOST: db
+        WORDPRESS_DB_USER: wordpress_user
+        WORDPRESS_DB_PASSWORD: password
+        WORDPRESS_DB_NAME: wordpress
+      volumes: 
+        - wordpres-v:/var/www/html
+      depends_on:
+        - db
+      links:
+        - "db:mysql"
+      networks: 
+        - frontend
+        - backend
+    nginx:
+      image: nginx
+      ports:
+          - "80:80"
+      networks:
+        - frontend
+      volumes:
+        - ./wordpress.conf:/etc/nginx/conf.d/default.conf:ro
+      depends_on: 
+        - api
+        - db
+networks: 
+  frontend:
+  backend:
+volumes: 
+  mysql-v:
+  wordpres-v:
